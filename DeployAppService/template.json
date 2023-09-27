@@ -77,8 +77,9 @@
         "location": "[parameters('location')]",
         "tags": "[parameters('resourceTags')]",
         "sku": {
-          "name": "F1",
-          "tier": "Free"
+          "name": "S1",
+          "tier": "Standard",
+          "size": "S1"
         },
         "kind": "linux",
         "properties": {
