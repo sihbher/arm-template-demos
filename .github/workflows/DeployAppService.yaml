@@ -27,6 +27,6 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./DeployAppService/template.json
-        parameters: ./DeployAppService/parameters.json storageAccountTypeDemo=Standard_LRS
+        parameters: ./DeployAppService/parameters.json storageSKU=Standard_LRS
         # output containerName variable from template
     - run: echo ${{ steps.deploy.outputs.containerName }}
