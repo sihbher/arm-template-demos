@@ -1,4 +1,4 @@
-on: [workflow_dispatch]
+on: [workflow_dispatch, push]
 name: Deploy App Service ARM
 jobs:
   build-and-deploy:

@@ -77,11 +77,8 @@
         "location": "[parameters('location')]",
         "tags": "[parameters('resourceTags')]",
         "sku": {
-          "name": "B1",
-          "tier": "Basic",
-          "size": "B1",
-          "family": "B",
-          "capacity": 1
+          "name": "F1",
+          "tier": "Free"
         },
         "kind": "linux",
         "properties": {
