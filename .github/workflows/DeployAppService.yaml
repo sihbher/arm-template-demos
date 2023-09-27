@@ -1,8 +1,11 @@
-on: [workflow_dispatch, push]
-name: Deploy Storage Account ARM
+on: [workflow_dispatch]
+name: Deploy App Service ARM
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      ResourceGroupName: ${{ secrets.AZURE_RG }}
+      ResourceGroupLocation: ${{ secrets.AZURE_LOCATION }}
     steps:
     # Checkout code
     - uses: actions/checkout@main
@@ -10,13 +13,20 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        # Deploy ARM template
+    # Create resource group if not exists
+    - uses: Azure/CLI@v1
+      with:
+        inlineScript: |
+          #!/bin/bash
+          az group create --name ${{ env.ResourceGroupName }} --location ${{ env.ResourceGroupLocation }}
+          echo "Azure resource group created"
+    # Deploy ARM template
     - name: Run ARM deploy
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./DeployStorageAccount/template.json
-        parameters: storageAccountType=Standard_LRS
+        template: ./DeployAppService/template.json
+        parameters: ./DeployAppService/parameters.json storageAccountTypeDemo=Standard_LRS
         # output containerName variable from template
     - run: echo ${{ steps.deploy.outputs.containerName }}

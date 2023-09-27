@@ -57,8 +57,28 @@ Follow this article: [Deploy ARM templates by using GitHub Actions](https://lear
 1. Create a Service Principal using Azure CLI
 
 ```bash
-az ad sp create-for-rbac --name "myML" --role contributor \
+az ad sp create-for-rbac --name "myDeploymentSP" --role contributor \
                             --scopes /subscriptions/<subscription-id>/resourceGroups/<group-name> \
                             --sdk-auth
 ```
 
+az ad sp create-for-rbac --name "myDeploymentSP" --role contributor \
+                            --scopes /subscriptions/c3ec59d4-595f-4848-a4c1-4d6b9ecb2890/resourceGroups/<group-name> \
+                            --sdk-auth
+
+2. Create the required secrets
+-  AZURE_LOCATION
+-  AZURE_RG
+-  AZURE_SUBSCRIPTION
+-  AZURE_CREDENTIALS. Which should be in this format: 
+
+
+
+```JSON
+{
+    "clientId": "<Set your cliendID>",
+    "clientSecret": "<Set your client secret>",
+    "subscriptionId": "<Set your subscription ID>",
+    "tenantId": "<Set your tenant ID>"
+  }
+``````
